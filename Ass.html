@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Student Registration Form</title>
+
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
+}
+
+body{
+/* Set background image to cover the full screen smoothly */
+background-image: url('https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1920'); 
+background-size: cover;
+background-position: center;
+background-repeat: no-repeat;
+background-attachment: fixed;
+
+display:flex;
+justify-content:center;
+align-items:center;
+min-height:100vh;
+padding: 20px;
+}
+
+/* THE FROSTED GLASS TRANSPARENT CONTAINER BOX */
+.container{
+width:450px;
+background: rgba(255, 255, 255, 0.12); /* Semi-transparent white background */
+padding: 50px 30px 30px 30px; /* Top padding increased to make room for the corner button */
+border-radius:16px;
+box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+backdrop-filter: blur(12px); /* Creates the frosted glass blur effect */
+-webkit-backdrop-filter: blur(12px);
+border: 1px solid rgba(255, 255, 255, 0.2); /* Soft shiny border */
+display: flex;
+flex-direction: column;
+position: relative; /* Essential for positioning the top-right button absolute */
+}
+
+/* --- CLICK ME BUTTON POSITIONED TOP-RIGHT --- */
+.click-me-link {
+position: absolute;
+top: 15px;
+right: 15px;
+background: rgba(255, 71, 87, 0.9); /* Eye-catching reddish tint */
+color: white;
+text-decoration: none;
+font-weight: bold;
+font-size: 13px;
+padding: 6px 15px;
+border-radius: 20px;
+box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+transition: all 0.2s ease-in-out;
+text-align: center;
+z-index: 10;
+cursor: pointer;
+}
+
+.click-me-link:hover {
+background: #ff4757;
+transform: translateY(-1px);
+box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+h2{
+text-align:center;
+margin-bottom:20px;
+color:#ffffff; /* Pure white title to stand out on dark backgrounds */
+text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+margin-top: 10px; /* Space from the top edge */
+}
+
+label{
+font-weight:bold;
+display:block;
+margin-top:15px;
+color: #ffffff; /* Bright white labels for readability */
+text-shadow: 0 1px 3px rgba(0,0,0,0.4);
+}
+
+input,select{
+width:100%;
+padding:10px;
+margin-top:5px;
+border:1px solid rgba(255, 255, 255, 0.3);
+border-radius:5px;
+background: rgba(255, 255, 255, 0.9); /* Makes inputs easy to read and type into */
+color: #000;
+}
+
+.input-group {
+display: flex;
+gap: 10px;
+margin-top: 5px;
+}
+
+.input-group input {
+margin-top: 0;
+flex: 1;
+}
+
+.otp-btn {
+background: #2b4eff;
+color: white;
+border: none;
+padding: 0 15px;
+border-radius: 5px;
+font-size: 14px;
+cursor: pointer;
+white-space: nowrap;
+transition: background 0.2s;
+}
+
+.otp-btn:hover {
+background: #1a3ad4;
+}
+
+.gender{
+margin-top:10px;
+color: #ffffff;
+font-weight: bold;
+}
+
+.gender input{
+width:auto;
+margin-right: 5px;
+}
+
+.form-actions {
+margin-top: 25px;
+}
+
+button[type="submit"]{
+background:#2b4eff;
+padding:12px;
+width:48%;
+border:none;
+color:#fff;
+font-size:16px;
+cursor:pointer;
+border-radius:5px;
+font-weight: bold;
+}
+
+button[type="reset"]{
+background:#ff3d3d;
+padding:12px;
+width:48%;
+border:none;
+color:#fff;
+font-size:16px;
+cursor:pointer;
+border-radius:5px;
+float:right;
+font-weight: bold;
+}
+
+/* --- SUCCESS MODAL STYLES --- */
+.modal-overlay {
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background: rgba(0, 0, 0, 0.6);
+display: none;
+justify-content: center;
+align-items: center;
+z-index: 999;
+}
+
+.modal-box {
+background: #fff;
+padding: 30px;
+width: 380px;
+text-align: center;
+border-radius: 12px;
+box-shadow: 0 4px 25px rgba(0,0,0,0.4);
+animation: scaleUp 0.3s ease-in-out;
+display: flex;
+flex-direction: column;
+align-items: center;
+}
+
+.modal-img {
+width: 140px;
+height: 140px;
+margin-bottom: 20px;
+border-radius: 12px; /* Softened image corners */
+object-fit: cover;
+border: 3px solid #f0f4ff;
+}
+
+.modal-box h3 {
+color: #2b4eff;
+font-size: 24px;
+margin-bottom: 10px;
+}
+
+.modal-box p {
+color: #555;
+margin-bottom: 20px;
+font-size: 16px;
+}
+
+.modal-close-btn {
+background: green;
+color: white;
+border: none;
+padding: 10px 35px;
+border-radius: 5px;
+font-size: 16px;
+cursor: pointer;
+font-weight: bold;
+width: auto;
+}
+
+@keyframes scaleUp {
+  from { transform: scale(0.7); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+</style>
+
+</head>
+<body>
+
+<div class="container">
+
+<!-- CORRECTED: Safely links to 44.html without breaking layout. Now placed top-right. -->
+<a href="44.html" class="click-me-link">Click Me</a>
+
+<h2>Student Application</h2>
+
+<form id="studentForm">
+
+<label>Full Name</label>
+<input type="text" id="name">
+
+<label>Date of Birth</label>
+<input type="date" id="dob">
+
+<label>Phone Number</label>
+<div class="input-group">
+<input type="text" id="phone">
+<button type="button" class="otp-btn" id="sendPhoneOtp">Send OTP</button>
+</div>
+
+<label>Email Address</label>
+<div class="input-group">
+<input type="text" id="email">
+<button type="button" class="otp-btn" id="sendEmailOtp">Send OTP</button>
+</div>
+
+<label>Gender</label>
+<div class="gender">
+<input type="radio" name="gender" value="Male"> Male &nbsp;&nbsp;
+<input type="radio" name="gender" value="Female"> Female
+</div>
+
+<label>Course</label>
+<select id="course">
+<option value="">Select Course</option>
+<option>Web Designing</option>
+<option>Python</option>
+<option>Java</option>
+<option>C Programming</option>
+</select>
+
+<div class="form-actions">
+<button type="submit" class="submit">Submit</button>
+<button type="reset" class="reset">Reset</button>
+</div>
+
+</form>
+
+</div>
+
+<div class="modal-overlay" id="successModal">
+    <div class="modal-box">
+        <img src="https://cdn-icons-png.flaticon.com/512/148/148767.png" alt="Success Check" class="modal-img">
+        <h3>Success!</h3>
+        <p>Registration Completed Successfully.</p>
+        <button class="modal-close-btn" id="closeModal">OK</button>
+    </div>
+</div>
+
+<script>
+document.getElementById("sendPhoneOtp").addEventListener("click", function() {
+let phone = document.getElementById("phone").value.trim();
+let phonePattern = /^[0-9]{10}$/;
+
+if(!phonePattern.test(phone)) {
+alert("Please enter a valid 10-digit phone number first.");
+return;
+}
+alert("OTP sent to phone: " + phone);
+});
+
+document.getElementById("sendEmailOtp").addEventListener("click", function() {
+let email = document.getElementById("email").value.trim();
+let emailPattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
+
+if(!emailPattern.test(email)) {
+alert("Please enter a valid email address first.");
+return;
+}
+alert("OTP sent to email: " + email);
+});
+
+document.getElementById("studentForm").addEventListener("submit",function(e){
+
+e.preventDefault();
+
+let name=document.getElementById("name").value.trim();
+let dob=document.getElementById("dob").value;
+let phone=document.getElementById("phone").value.trim();
+let email=document.getElementById("email").value.trim();
+let course=document.getElementById("course").value;
+let gender=document.querySelector('input[name="gender"]:checked');
+
+let emailPattern=/^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
+let phonePattern=/^[0-9]{10}$/;
+
+if(name=="" || dob=="" || phone=="" || email=="" || course==""){
+alert("Please fill all fields.");
+return;
+}
+
+if(!gender){
+alert("Please select gender.");
+return;
+}
+
+if(!emailPattern.test(email)){
+alert("Invalid Email Address");
+return;
+}
+
+if(!phonePattern.test(phone)){
+alert("Phone number must be 10 digits");
+return;
+}
+
+document.getElementById("successModal").style.display = "flex";
+this.reset();
+});
+
+document.getElementById("closeModal").addEventListener("click", function(){
+    document.getElementById("successModal").style.display = "none";
+});
+</script>
+
+</body>
+</html>
